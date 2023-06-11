@@ -1,8 +1,8 @@
 <template>
-	<view class="content">
-		<image class="logo" src="/static/logo.png"></image>
-		<view class="text-area">
-			<text class="title">{{title}}</text>
+	<view class="home">
+		<view class="row" v-for="item in listArr" :key="item.id">
+			<image :src="item.picurl" mode=""></image>
+			<view>{{item.title}}</view>
 		</view>
 	</view>
 </template>
@@ -11,13 +11,20 @@
 	export default {
 		data() {
 			return {
-				title: 'Hello'
+				title: "Hello",
+				listArr: []
 			}
 		},
 		onLoad() {
 			uniCloud.callFunction({
-				name: "myClounFun"
-			}).then(res => console.log(res))
+				name: "myClounFun",
+				data: {
+					num:3
+				}
+			}).then((res) => {
+				this.listArr = res.result
+				console.log(this.listArr);
+			})
 		},
 		methods: {
 
@@ -25,30 +32,9 @@
 	}
 </script>
 
-<style>
-	.content {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-	}
-
-	.logo {
-		height: 200rpx;
-		width: 200rpx;
-		margin-top: 200rpx;
-		margin-left: auto;
-		margin-right: auto;
-		margin-bottom: 50rpx;
-	}
-
-	.text-area {
-		display: flex;
-		justify-content: center;
-	}
-
-	.title {
-		font-size: 36rpx;
-		color: #8f8f94;
+<style lang="scss">
+	.row {
+		border-bottom: 1px solid #ccc;
+		padding: 30rpx;
 	}
 </style>
