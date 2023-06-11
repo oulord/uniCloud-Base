@@ -15,7 +15,9 @@
 			}
 		},
 		onLoad() {
-
+			uniCloud.callFunction({
+				name: "myClounFun"
+			}).then(res => console.log(res))
 		},
 		methods: {
 
