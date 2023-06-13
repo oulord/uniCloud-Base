@@ -1,9 +1,15 @@
 <template>
 	<view class="home">
-		<view class="row" v-for="item in listArr" :key="item.id">
+		<!-- <view class="row" v-for="item in listArr" :key="item.id">
 			<image :src="item.picurl" mode=""></image>
 			<view>{{item.title}}</view>
-		</view>
+		</view> -->
+
+		<form @submit="onSubmit">
+			<input type="text" name="name">
+			<input type="text" name="tel">
+			<button form-type="submit">提交</button>
+		</form>
 	</view>
 </template>
 
@@ -16,18 +22,22 @@
 			}
 		},
 		onLoad() {
-			uniCloud.callFunction({
-				name: "myClounFun",
-				data: {
-					num:3
-				}
-			}).then((res) => {
-				this.listArr = res.result
-				console.log(this.listArr);
-			})
+			
 		},
 		methods: {
-
+			onSubmit(e){
+				console.log(e);
+				let obj = e.detail.value
+				this.pushCloud(obj)
+			},
+			pushCloud(obj){
+				uniCloud.callFunction({
+					name:"cloudDemo1",
+					data:obj
+				}).then(res=>{
+					console.log(res);
+				})
+			}
 		}
 	}
 </script>
