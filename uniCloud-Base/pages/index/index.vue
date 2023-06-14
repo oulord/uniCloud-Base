@@ -1,15 +1,10 @@
 <template>
 	<view class="home">
-		<!-- <view class="row" v-for="item in listArr" :key="item.id">
-			<image :src="item.picurl" mode=""></image>
-			<view>{{item.title}}</view>
-		</view> -->
-
-		<form @submit="onSubmit">
-			<input type="text" name="name">
-			<input type="text" name="tel">
-			<button form-type="submit">提交</button>
-		</form>
+		<view class="out">
+			<view class="row">
+				姓名：{{}}
+			</view>
+		</view>
 	</view>
 </template>
 
@@ -22,18 +17,13 @@
 			}
 		},
 		onLoad() {
-			
+			this.getData()
 		},
 		methods: {
-			onSubmit(e){
-				console.log(e);
-				let obj = e.detail.value
-				this.pushCloud(obj)
-			},
-			pushCloud(obj){
+			getData() {
 				uniCloud.callFunction({
-					name:"cloudDemo1",
-					data:obj
+					name:"cloudDemoGet",
+					
 				}).then(res=>{
 					console.log(res);
 				})
@@ -43,8 +33,12 @@
 </script>
 
 <style lang="scss">
-	.row {
-		border-bottom: 1px solid #ccc;
+	.out {
 		padding: 30rpx;
+
+		.row {
+			border-bottom: 1px solid #ccc;
+			padding: 20rpx 0;
+		}
 	}
 </style>
