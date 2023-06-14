@@ -15,6 +15,8 @@
 				</view>
 			</view>
 		</view>
+
+		<view class="goAdd" @click="goAdd">+</view>
 	</view>
 </template>
 
@@ -29,12 +31,17 @@
 
 		},
 		methods: {
-
+			// 点击跳转到新增页面
+			goAdd() {
+				uni.navigateTo({
+					url: "/pages/add/add"
+				})
+			}
 		}
 	}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	.home {
 		.content {
 			padding: 30rpx;
@@ -68,7 +75,8 @@
 					.info {
 						font-size: 28rpx;
 						color: #888;
-						text{
+
+						text {
 							padding-right: 10rpx;
 						}
 					}
@@ -84,6 +92,21 @@
 					}
 				}
 			}
+		}
+
+		.goAdd {
+			width: 100rpx;
+			height: 100rpx;
+			background: #2b9939;
+			color: #fff;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			border-radius: 50%;
+			font-size: 50rpx;
+			position: fixed;
+			right: 60rpx;
+			bottom: 100rpx;
 		}
 	}
 </style>
