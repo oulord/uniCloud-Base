@@ -1,6 +1,20 @@
 <template>
 	<view class="home">
-		首页
+		<view class="content">
+			<view class="item" v-for="item in 5">
+				<view class="text">
+					<view class="title">默认标题默认标题默认标题默认标题默认标题默认标题默认标题</view>
+					<view class="info">
+						<text>lkj</text>
+						<text>2023-3-3</text>
+						<text>删除</text>
+					</view>
+				</view>
+				<view class="pic">
+					<image mode="aspectFill" src="../../static/images/nopic.jpg"></image>
+				</view>
+			</view>
+		</view>
 	</view>
 </template>
 
@@ -21,7 +35,55 @@
 </script>
 
 <style lang="scss">
-	:root {
-		box-sizing: border-box;
+	.home {
+		.content {
+			padding: 30rpx;
+
+			.item {
+				display: flex;
+				justify-content: space-between;
+				padding: 20rpx;
+				border-bottom: 1rpx solid #eee;
+
+				.text {
+					flex: 1;
+					display: flex;
+					flex-direction: column;
+					justify-content: space-between;
+
+					.title {
+						font-size: 44rpx;
+						color: #333;
+						text-align: justify;
+						text-overflow: -o-ellipsis-lastline;
+						overflow: hidden;
+						padding-right: 20rpx;
+						text-overflow: ellipsis;
+						display: -webkit-box;
+						-webkit-line-clamp: 2;
+						line-clamp: 2;
+						-webkit-box-orient: vertical;
+					}
+
+					.info {
+						font-size: 28rpx;
+						color: #888;
+						text{
+							padding-right: 10rpx;
+						}
+					}
+				}
+
+				.pic {
+					width: 260rpx;
+					height: 180rpx;
+
+					image {
+						width: 100%;
+						height: 100%;
+					}
+				}
+			}
+		}
 	}
 </style>
