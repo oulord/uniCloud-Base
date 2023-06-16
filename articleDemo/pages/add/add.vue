@@ -60,7 +60,7 @@
 						uni.reLaunch({
 							url: "/pages/index/index"
 						})
-					}, 15000)
+					}, 1000)
 				})
 			}
 		}

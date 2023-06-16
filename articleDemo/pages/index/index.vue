@@ -27,17 +27,29 @@
 				listArr: []
 			}
 		},
+
 		onLoad() {
 			this.getData()
 		},
+
+		onReachBottom() {
+			// 触底方法
+			this.getData()
+		},
+
 		methods: {
-			// 点击跳转数据库的列表
+			// 点击获取数据库的列表
 			getData() {
 				uniCloud.callFunction({
-					name: "art_get_all"
+					name: "art_get_all",
+					data: {
+						skip: this.listArr.length
+					}
 				}).then(res => {
 					// console.log(res);
-					this.listArr = res.result.data
+					let oldList = this.listArr
+					let newList = [...oldList,...res.result.data]
+					this.listArr = newList
 				})
 			},
 
