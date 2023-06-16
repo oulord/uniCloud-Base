@@ -1,12 +1,12 @@
 <template>
 	<view class="home">
 		<view class="content">
-			<view class="item" v-for="item in 5">
+			<view class="item" v-for="item in listArr" :key="item._id">
 				<view class="text">
-					<view class="title">默认标题默认标题默认标题默认标题默认标题默认标题默认标题</view>
+					<view class="title">{{item.title}}</view>
 					<view class="info">
-						<text>lkj</text>
-						<text>2023-3-3</text>
+						<text>{{item.author}}</text>
+						<text>{{item.posttime}}</text>
 						<text>删除</text>
 					</view>
 				</view>
@@ -24,13 +24,23 @@
 	export default {
 		data() {
 			return {
-				title: 'Hello'
+				listArr: []
 			}
 		},
 		onLoad() {
-
+			this.getData()
 		},
 		methods: {
+			// 点击跳转数据库的列表
+			getData() {
+				uniCloud.callFunction({
+					name: "art_get_all"
+				}).then(res => {
+					// console.log(res);
+					this.listArr = res.result.data
+				})
+			},
+
 			// 点击跳转到新增页面
 			goAdd() {
 				uni.navigateTo({
