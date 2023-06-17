@@ -1,7 +1,7 @@
 <template>
 	<view class="home">
 		<view class="content">
-			<view class="item" v-for="item in listArr" :key="item._id">
+			<view @click="goDetail(item._id)" class="item" v-for="item in listArr" :key="item._id">
 				<view class="text">
 					<view class="title">{{item.title}}</view>
 					<view class="info">
@@ -39,6 +39,13 @@
 		},
 
 		methods: {
+			// 点击跳转详情页面
+			goDetail(e) {
+				uni.navigateTo({
+					url: `/pages/detail/detail?id=${e}`
+				})
+			},
+
 			// 点击获取数据库的列表
 			getData() {
 				uniCloud.callFunction({
@@ -60,7 +67,7 @@
 					url: "/pages/add/add"
 				})
 			}
-		}
+		},
 	}
 </script>
 
