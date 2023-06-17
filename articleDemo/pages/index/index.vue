@@ -6,8 +6,7 @@
 					<view class="title">{{item.title}}</view>
 					<view class="info">
 						<text>{{item.author}}</text>
-						<text>{{item.posttime}}</text>
-						<text>删除</text>
+						<uni-dateformat :date="item.posttime" format="MM-dd"></uni-dateformat>
 					</view>
 				</view>
 				<view class="pic">
@@ -16,7 +15,9 @@
 			</view>
 		</view>
 
-		<view class="goAdd" @click="goAdd">+</view>
+		<view class="goAdd" @click="goAdd">
+			<uni-icons type="plusempty" size="30" color="fff"></uni-icons>
+		</view>
 	</view>
 </template>
 
@@ -48,7 +49,7 @@
 				}).then(res => {
 					// console.log(res);
 					let oldList = this.listArr
-					let newList = [...oldList,...res.result.data]
+					let newList = [...oldList, ...res.result.data]
 					this.listArr = newList
 				})
 			},
