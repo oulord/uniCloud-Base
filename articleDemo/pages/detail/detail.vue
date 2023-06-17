@@ -1,11 +1,11 @@
 <template>
 	<view class="detail">
-		<view class="title">这是标题</view>
+		<view class="title">{{detail.title}}</view>
 		<view class="info">
-			<text>作者</text>
-			<text>2022-10-01 15:12:12</text>
+			<text>{{detail.author}}</text>
+			<text><uni-dateformat :date="detail.posttime"></uni-dateformat></text>
 		</view>
-		<view class="content">这是内容</view>
+		<view class="content">{{detail.content}}</view>
 
 		<view class="btnGroup">
 			<button size="mini">修改</button>
@@ -15,11 +15,30 @@
 </template>
 
 <script>
+	let id
 	export default {
 		data() {
 			return {
-
+				detail:{}
 			};
+		},
+
+		onLoad(e) {
+			id = e.id
+			this.getDetail()
+		},
+
+		methods: {
+			getDetail() {
+				uniCloud.callFunction({
+					name: "art_get_row",
+					data: {
+						id
+					}
+				}).then(res => {
+					this.detail = res.result.data[0]
+				})
+			}
 		}
 	}
 </script>
