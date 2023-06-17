@@ -1,15 +1,21 @@
 <template>
 	<view class="detail">
-		<view class="title">{{detail.title}}</view>
-		<view class="info">
-			<text>{{detail.author}}</text>
-			<text><uni-dateformat :date="detail.posttime"></uni-dateformat></text>
-		</view>
-		<view class="content">{{detail.content}}</view>
+		<view v-if="loadState">
+			<view class="title">{{detail.title}}</view>
+			<view class="info">
+				<text>{{detail.author}}</text>
+				<text><uni-dateformat :date="detail.posttime"></uni-dateformat></text>
+			</view>
+			<view class="content">{{detail.content}}</view>
 
-		<view class="btnGroup">
-			<button size="mini">修改</button>
-			<button size="mini" type="warn">删除</button>
+			<view class="btnGroup">
+				<button size="mini">修改</button>
+				<button size="mini" type="warn">删除</button>
+			</view>
+		</view>
+
+		<view v-else>
+			<uni-load-more status="loading"></uni-load-more>
 		</view>
 	</view>
 </template>
@@ -19,7 +25,8 @@
 	export default {
 		data() {
 			return {
-				detail:{}
+				detail: {},
+				loadState: false
 			};
 		},
 
@@ -37,6 +44,10 @@
 					}
 				}).then(res => {
 					this.detail = res.result.data[0]
+					this.loadState = true
+					uni.setNavigationBarTitle({
+						title: this.detail.title
+					});
 				})
 			}
 		}
