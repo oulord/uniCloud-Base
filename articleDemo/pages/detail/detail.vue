@@ -10,7 +10,7 @@
 
 			<view class="btnGroup">
 				<button size="mini">修改</button>
-				<button size="mini" type="warn">删除</button>
+				<button size="mini" type="warn" @click="onRemove">删除</button>
 			</view>
 		</view>
 
@@ -36,6 +36,38 @@
 		},
 
 		methods: {
+			// 删除一条记录
+			onRemove() {
+				uni.showModal({
+					content: "是否确认删除？",
+					success: res => {
+						if (res.confirm) {
+							this.removeFun()
+						}
+					}
+				})
+
+			},
+
+			removeFun() {
+				uniCloud.callFunction({
+					name: "art_remove_row",
+					data: {
+						id
+					}
+				}).then(res => {
+					uni.showToast({
+						title: "删除成功"
+					})
+					setTimeout(() => {
+						uni.reLaunch({
+							url: "/pages/index/index"
+						})
+					}, 800)
+				})
+			},
+
+			// 获取详情页
 			getDetail() {
 				uniCloud.callFunction({
 					name: "art_get_row",
@@ -48,6 +80,16 @@
 					uni.setNavigationBarTitle({
 						title: this.detail.title
 					});
+				}).catch(() => {
+					uni.showToast({
+						icon: "error",
+						title: "删除有误"
+					})
+					setTimeout(() => {
+						uni.reLaunch({
+							url: "/pages/index/index"
+						})
+					}, 800)
 				})
 			}
 		}
