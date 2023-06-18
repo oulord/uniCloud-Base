@@ -9,7 +9,7 @@
 			<view class="content">{{detail.content}}</view>
 
 			<view class="btnGroup">
-				<button size="mini">修改</button>
+				<button size="mini" @click="goEdit">修改</button>
 				<button size="mini" type="warn" @click="onRemove">删除</button>
 			</view>
 		</view>
@@ -36,6 +36,13 @@
 		},
 
 		methods: {
+			// 修改一条记录
+			goEdit(){
+				uni.navigateTo({
+					url:`/pages/edit/edit?id=${id}`,
+				})
+			},
+			
 			// 删除一条记录
 			onRemove() {
 				uni.showModal({
