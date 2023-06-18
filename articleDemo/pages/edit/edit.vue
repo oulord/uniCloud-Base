@@ -38,6 +38,10 @@
 			id = e.id
 			this.getDetail()
 		},
+		
+		onShow() {
+			this.getDetail()
+		},
 
 		methods: {
 			// 获取详情
@@ -63,22 +67,19 @@
 
 			// 点击提交表单
 			onSubmit(e) {
-				let detail = e.detail.value
 				uniCloud.callFunction({
-					name: "art_add_row",
+					name: "art_updata_row",
 					data: {
-						detail: detail
+						detail: this.formValue
 					}
 				}).then(res => {
 					// console.log(res);
 					uni.showToast({
-						title: "发布成功",
+						title: "修改成功",
 					})
 					setTimeout(() => {
-						uni.reLaunch({
-							url: "/pages/index/index"
-						})
-					}, 1000)
+						uni.navigateBack()
+					}, 800)
 				})
 			}
 		}
