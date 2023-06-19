@@ -38,6 +38,12 @@
 			this.getData()
 		},
 
+		onPullDownRefresh() {
+			// 下拉刷新
+			this.listArr = []
+			this.getData()
+		},
+
 		methods: {
 			// 点击跳转详情页面
 			goDetail(e) {
@@ -58,6 +64,7 @@
 					let oldList = this.listArr
 					let newList = [...oldList, ...res.result.data]
 					this.listArr = newList
+					uni.stopPullDownRefresh()
 				})
 			},
 
