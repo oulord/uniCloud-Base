@@ -14,6 +14,10 @@
 			</view>
 
 			<view class="item">
+				<uni-file-picker v-model="imageValue" fileMediatype="image" mode="grid" @success="uploadSuccess" />
+			</view>
+
+			<view class=" item">
 				<button form-type="reset">重置</button>
 				<button form-type="submit" type="primary" :disabled="inDisabled(formValue)">提交</button>
 			</view>
@@ -25,15 +29,23 @@
 	export default {
 		data() {
 			return {
+				imageValue: [],
 				formValue: {
 					title: "",
 					author: "",
 					content: "",
-				}
+				},
+				picurls: []
 			};
 		},
 
 		methods: {
+			// 图片上传成功
+			uploadSuccess(e) {
+				console.log(e);
+				this.picurls = e.tempFilePaths
+			},
+
 			// 判断按钮是否禁用
 			inDisabled(obj) {
 				for (let key in obj) {
@@ -49,7 +61,8 @@
 				uniCloud.callFunction({
 					name: "art_add_row",
 					data: {
-						detail: detail
+						detail: detail,
+						picurls:this.picurls
 					}
 				}).then(res => {
 					// console.log(res);
