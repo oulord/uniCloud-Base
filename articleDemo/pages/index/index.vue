@@ -10,7 +10,8 @@
 					</view>
 				</view>
 				<view class="pic">
-					<image mode="aspectFill" src="../../static/images/nopic.jpg"></image>
+					<image v-if="item.picurls && item.picurls.length" mode="aspectFill" :src="item.picurls[0]"></image>
+					<image v-else mode="aspectFill" src="../../static/images/nopic.jpg"></image>
 				</view>
 			</view>
 		</view>

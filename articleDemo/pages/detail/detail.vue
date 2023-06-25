@@ -8,6 +8,10 @@
 			</view>
 			<view class="content">{{detail.content}}</view>
 
+			<view class="picurls" v-if="detail.picurls && detail.picurls.length">
+				<image v-for="item in detail.picurls" :src="item" mode="widthFix"></image>
+			</view>
+
 			<view class="btnGroup">
 				<button size="mini" @click="goEdit">修改</button>
 				<button size="mini" type="warn" @click="onRemove">删除</button>
@@ -37,12 +41,12 @@
 
 		methods: {
 			// 修改一条记录
-			goEdit(){
+			goEdit() {
 				uni.navigateTo({
-					url:`/pages/edit/edit?id=${id}`,
+					url: `/pages/edit/edit?id=${id}`,
 				})
 			},
-			
+
 			// 删除一条记录
 			onRemove() {
 				uni.showModal({
@@ -127,6 +131,15 @@
 		.content {
 			font-size: 36rpx;
 			line-height: 1.4em;
+		}
+
+		.picurls {
+			padding-top: 50rpx;
+			image {
+				width: 100%;
+				display: block;
+				margin-bottom: 30rpx;
+			}
 		}
 
 		.btnGroup {

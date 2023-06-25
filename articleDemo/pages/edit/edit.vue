@@ -36,7 +36,7 @@
 					author: "",
 					content: "",
 				},
-				picurls:[]
+				picurls: []
 			};
 		},
 
@@ -51,10 +51,10 @@
 
 		methods: {
 			// 上传图片
-			uploadSuccess(){
+			uploadSuccess() {
 				this.picurls = e.tempFilePaths
 			},
-			
+
 			// 获取详情
 			getDetail() {
 				uniCloud.callFunction({
@@ -84,11 +84,14 @@
 
 			// 点击提交表单
 			onSubmit(e) {
+				let _picurls = this.imageValue.map(item => {
+					return item.url
+				})
 				uniCloud.callFunction({
 					name: "art_updata_row",
 					data: {
 						detail: this.formValue,
-						picurls:this.picurls
+						picurls: _picurls
 					}
 				}).then(res => {
 					// console.log(res);
