@@ -14,6 +14,10 @@
 			</view>
 
 			<view class="item">
+				<uni-file-picker v-model="imageValue" fileMediatype="image" mode="grid" @success="uploadSuccess" />
+			</view>
+
+			<view class="item">
 				<button form-type="reset">重置</button>
 				<button form-type="submit" type="primary" :disabled="inDisabled(formValue)">提交</button>
 			</view>
@@ -26,11 +30,13 @@
 	export default {
 		data() {
 			return {
+				imageValue: [],
 				formValue: {
 					title: "",
 					author: "",
 					content: "",
-				}
+				},
+				picurls:[]
 			};
 		},
 
@@ -38,12 +44,17 @@
 			id = e.id
 			this.getDetail()
 		},
-		
+
 		onShow() {
 			this.getDetail()
 		},
 
 		methods: {
+			// 上传图片
+			uploadSuccess(){
+				this.picurls = e.tempFilePaths
+			},
+			
 			// 获取详情
 			getDetail() {
 				uniCloud.callFunction({
@@ -53,6 +64,12 @@
 					}
 				}).then(res => {
 					this.formValue = res.result.data[0]
+					let urls = this.formValue.picurls.map(item => {
+						return {
+							url: item
+						}
+					})
+					this.imageValue = urls
 				})
 			},
 
@@ -70,7 +87,8 @@
 				uniCloud.callFunction({
 					name: "art_updata_row",
 					data: {
-						detail: this.formValue
+						detail: this.formValue,
+						picurls:this.picurls
 					}
 				}).then(res => {
 					// console.log(res);
