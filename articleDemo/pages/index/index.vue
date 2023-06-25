@@ -64,7 +64,7 @@
 					let oldList = this.listArr
 					let newList = [...oldList, ...res.result.data]
 					this.listArr = newList
-					uni.stopPullDownRefresh()
+					// uni.stopPullDownRefresh()
 				})
 			},
 
